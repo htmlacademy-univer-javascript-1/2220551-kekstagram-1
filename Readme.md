@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Антон Столбов](https://up.htmlacademy.ru/univer-js1/1/user/2220551).
-* Наставник: [Геннадий Максимов](https://htmlacademy.ru/profile/gennadiy)
+* Наставник: [Геннадий Максимо](https://htmlacademy.ru/profile/gennadiy)
 
 ---
 
