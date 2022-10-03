@@ -1,60 +1,61 @@
+
+const MAX_COUNT_PHOTOS = 25;
+const CountLike = {
+  MIN: 15,
+  MAX: 200
+};
+const AvatarSvg = {
+  MIN: 1,
+  MAX: 6
+};
+const NumberComments = {
+  MIN: 1,
+  MAX: 5
+};
+
 const getRandomPositiveInclusive = (min, max) => {
   min = Math.ceil(Math.min(Math.abs(max), Math.abs(min)));
   max = Math.floor(Math.max(Math.abs(max), Math.abs(min)));
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const сheckMaxLengthString = (line, maxLenth) => line.length <= maxLenth;
+const сheckMaxLengthString = (line, maxLenth) => line <= maxLenth;
+
 getRandomPositiveInclusive();
 сheckMaxLengthString();
 
-const getRandomName = () =>{
-  const names = ['Антон','Максим','Геннадий','Юлия','Наталья','Григорий','Михаил','Роман','Анастасия','Дмитрий'];
+const getRandomName = () => {
+  const names = ['Антон', 'Максим', 'Геннадий', 'Юлия', 'Наталья', 'Григорий', 'Михаил', 'Роман', 'Анастасия', 'Дмитрий'];
   return names[getRandomPositiveInclusive(0, names.length - 1)];
 };
 
-const getRandomComment = () =>{
-  const comment = ['Всё отлично!','В целом всё неплохо. Но не всё.','Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.','Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.','Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.','Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
+const getRandomComment = () => {
+  const comment = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.', 'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.', 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
   return comment[getRandomPositiveInclusive(0, comment.length - 1)];
 };
 
 const getDescription = () => {
-  const description = [  'Тут я отдыхаю', 'Здесь я работаю', 'Очень красиво', 'Ух как классно', 'Смотрюсь тут очень классно', 'Поставьте лайк и подпишитесь на меня','Хочу лайки-лайки',];
+  const description = ['Здеась я кайфую', 'Здесь я работаю', 'Так нравится это фото', 'Прекрасно', 'Кайфули', 'Поставьте лайк пж'];
   return description[getRandomPositiveInclusive(0, description.length - 1)];
 };
 
-const getRandomNonRepeatingNumber = (maxNumber) => {
-  const randomStart = 1;
-  const array= [];
-
-  for(let i = randomStart; i <= maxNumber ; i++){
-    array.push(i);
-  }
-  const array2 = [];
-
-  for(let countCycles = 0; countCycles < maxNumber; countCycles++){
-    array2[countCycles] = (array.splice(Math.random()*array.length,1)[0]);
-  }
-  return (array2[getRandomPositiveInclusive(0,maxNumber - 1)]);
-
-};
-const makeComment = () =>({
-  id: getRandomNonRepeatingNumber(1000),
-  avatar: 'img/avatar-' + getRandomPositiveInclusive(1,6) + '.svg',
+const makeComment = (id) => ({
+  id: id,
+  avatar: `img/avatar-/${getRandomPositiveInclusive(AvatarSvg.MIN, AvatarSvg.MAX)}.svg`,
   message: getRandomComment(),
   name: getRandomName(),
 });
 
 
-const makePhoto = () => {
-  return{
-    id: getRandomNonRepeatingNumber(25),
-    url: 'photos/' + getRandomNonRepeatingNumber(25) +  '.jpg',
-    description: getDescription(),
-    likes: getRandomPositiveInclusive(15,200),
-    comment: Array.from({length: getRandomPositiveInclusive(1,5)}, makeComment),
-  };
-};
+const makePhoto = (id) => ({
+  id: id,
+  url: `photos/${id}.jpg`,
+  description: getDescription(),
+  likes: getRandomPositiveInclusive(CountLike.MIN, CountLike.MAX),
+  comment: Array.from({ length: getRandomPositiveInclusive(NumberComments.MIN, NumberComments.MAX) }).map((value, index) => makeComment(index + 1))
 
-const similarPosts = Array.from({length: 25}, makePhoto);
+});
+
+const similarPosts = Array.from({ length: MAX_COUNT_PHOTOS }).map((value, index) => makePhoto(index + 1)
+);
 console.log(similarPosts);
