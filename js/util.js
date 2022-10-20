@@ -8,3 +8,4 @@ const сheckMaxLengthString = (line, maxLenth) => line.length <= maxLenth;
 сheckMaxLengthString('Я строка', 100);
 
 export { getRandomPositiveInclusive, сheckMaxLengthString };
+
