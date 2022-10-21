@@ -6,7 +6,7 @@ const CountLike = {
   MAX: 200
 };
 const AvatarSvg = {
-  MIN: 2,
+  MIN: 1,
   MAX: 6
 };
 const NumberComments = {
