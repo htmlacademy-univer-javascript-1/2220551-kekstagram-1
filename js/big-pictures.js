@@ -1,7 +1,4 @@
 import { getSimilarPosts } from './data.js';
-import { getPhotos } from './miniatures.js';
-//import { getBigPicture } from './big-pictures.js';
-getPhotos();
 
 const pictures = document.querySelectorAll('.js-picture');
 const bigPhoto = document.querySelector('.big-picture');
@@ -26,7 +23,6 @@ const getPosts = getSimilarPosts();
 
 const onPictureClick = (evt) => {
   evt.preventDefault();
-  getPhotos();
   const target = evt.target;
   const parent = target.closest('.js-picture');
   bigPhoto.querySelector('.big-picture__src').src =  parent.querySelector('.picture__img').src ;
@@ -54,9 +50,11 @@ const getBigPicture = () =>{
   pictures.forEach((photo) => {
     photo.addEventListener('click', onPictureClick);
   });
+
 };
 
 const closeButton  = document.querySelector('.big-picture__cancel');
+
 closeButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   bigPhoto.classList.add('hidden');
@@ -68,4 +66,5 @@ document.addEventListener('keydown', (evt) =>{
     bigPhoto.classList.add('hidden');
   }
 });
-getBigPicture();
+
+export { getBigPicture };
