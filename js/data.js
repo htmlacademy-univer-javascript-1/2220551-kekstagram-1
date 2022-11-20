@@ -1,51 +1,23 @@
 import { getRandomPositiveInclusive } from './util.js';
+import  { NAMES, MESSAGES, DESCRIPTIONS, CountLike, AvatarSvg, CountComment, MAX_COUNT_PHOTOS } from './consts.js';
 
-const MAX_COUNT_PHOTOS = 25;
-const CountLike = {
-  MIN: 15,
-  MAX: 200
-};
-const AvatarSvg = {
-  MIN: 1,
-  MAX: 6
-};
-const NumberComments = {
-  MIN: 1,
-  MAX: 5
-};
-
-const getRandomName = () => {
-  const NAMES = ['Антон', 'Максим', 'Геннадий', 'Юлия', 'Наталья', 'Григорий', 'Михаил', 'Роман', 'Анастасия', 'Дмитрий'];
-  return NAMES[getRandomPositiveInclusive(0, NAMES.length - 1)];
-};
-
-const getRandomComment = () => {
-  const COMMENTS = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.', 'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.', 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
-  return COMMENTS[getRandomPositiveInclusive(0, COMMENTS.length - 1)];
-};
-
-const getDescription = () => {
-  const DESCTIPTION = ['Здеась я кайфую', 'Здесь я работаю', 'Так нравится это фото', 'Прекрасно', 'Кайфули', 'Поставьте лайк пж'];
-  return DESCTIPTION[getRandomPositiveInclusive(0, DESCTIPTION.length - 1)];
-};
-
-const makeComment = (id) => ({
-  id: id,
-  avatar: `img/avatar-/${getRandomPositiveInclusive(AvatarSvg.MIN, AvatarSvg.MAX)}.svg`,
-  message: getRandomComment(),
-  name: getRandomName(),
+const createComment = (id) => ({
+  id,
+  avatar: `img/avatar-${getRandomPositiveInclusive(AvatarSvg.MIN, AvatarSvg.MAX)}.svg`,
+  message: MESSAGES[getRandomPositiveInclusive(0, MESSAGES.length - 1)],
+  name: NAMES[getRandomPositiveInclusive(0, NAMES.length - 1)],
 });
 
+const createComments = () => Array.from({length: getRandomPositiveInclusive(CountComment.MIN, CountComment.MAX)}, (_, index) => createComment(index + 1));
 
-const makePhoto = (id) => ({
-  id: id,
+const createPhoto = (id) => ({
+  id,
   url: `photos/${id}.jpg`,
-  description: getDescription(),
+  description: DESCRIPTIONS[getRandomPositiveInclusive(0, DESCRIPTIONS.length - 1)],
   likes: getRandomPositiveInclusive(CountLike.MIN, CountLike.MAX),
-  comment: Array.from({ length: getRandomPositiveInclusive(NumberComments.MIN, NumberComments.MAX) }).map((value, index) => makeComment(index + 1))
-
+  comments: createComments()
 });
 
-const getSimilarPosts = () => Array.from({ length: MAX_COUNT_PHOTOS }).map((value, index) => makePhoto(index + 1));
+const createPhotos = () => Array.from({length: MAX_COUNT_PHOTOS}, (_, index) => createPhoto(index + 1));
 
-export { getSimilarPosts };
+export { createPhotos };
