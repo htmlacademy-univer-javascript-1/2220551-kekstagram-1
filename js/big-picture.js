@@ -1,3 +1,5 @@
+import { isEscKey } from './util.js';
+
 const DEFAULT_RENDERED_COMMENTS = 5;
 const STEP_ADDED_COMMENTS = 5;
 
@@ -68,7 +70,7 @@ function onBigPictureCloseBtnClick() {
 }
 
 function onWindowEscKeydown(evt) {
-  if(evt.keyCode === 27){
+  if(isEscKey(evt)){
     closeBigPicture();
   }
 }
