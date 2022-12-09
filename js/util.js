@@ -4,9 +4,6 @@ const getRandomPositiveInclusive = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const сheckMaxLengthString = (line, maxLenth) => String(line).length <= maxLenth;
-сheckMaxLengthString('Я строка', 100);
-
 const isEscKey = (evt) => evt.keyCode === 27;
 
-export { getRandomPositiveInclusive, сheckMaxLengthString, isEscKey };
+export { getRandomPositiveInclusive,isEscKey };

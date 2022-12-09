@@ -1,41 +1,47 @@
 import { isEscKey } from './util.js';
-import { onFormInput, refreshPrinstine } from './validate.js';
+import { pristine, refreshPrinstine } from './validate.js';
 
-const imgUploadFileInput = document.querySelector('.img-upload__input');
+const imgUploadFileChange = document.querySelector('.img-upload__input');
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
 const closingButton = document.querySelector('#upload-cancel');
 
-const noFocus = (evt) =>
+const isFocus = (evt) =>
   !evt.target.classList.contains('text__hashtags') &&
   !evt.target.classList.contains('text__description');
 
-const closeClick = () => {
+const onFormInput = (evt) => {
+  if (!pristine.validate()) {
+    evt.preventDefault();
+  }
+};
+
+const onFormCloseBtnClick = () => {
   overlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
   form.reset();
-  imgUploadFileInput.value = '';
+  imgUploadFileChange.value = '';
 
   refreshPrinstine();
   form.removeEventListener('submit', onFormInput);
-  closingButton.removeEventListener('click', closeClick);
+  closingButton.removeEventListener('click', onFormCloseBtnClick);
 };
 
-const closeEscKey = (evt) => {
-  if (isEscKey(evt) && noFocus(evt)) {
-    closeClick();
-    document.removeEventListener('keydown', closeEscKey);
+const onEscClick = (evt) => {
+  if (isEscKey(evt) && isFocus(evt)) {
+    onFormCloseBtnClick();
+    document.removeEventListener('keydown', onEscClick);
   }
 };
 
-const fileInput = () => {
+const onImgUploadFieldСhange  = () => {
   overlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
-  closingButton.addEventListener('click', closeClick);
-  document.addEventListener('keydown', closeEscKey);
+  closingButton.addEventListener('click', onFormCloseBtnClick);
+  document.addEventListener('keydown', onEscClick);
   form.addEventListener('submit', onFormInput);
 };
 
-imgUploadFileInput.addEventListener('input', fileInput);
+imgUploadFileChange.addEventListener('input', onImgUploadFieldСhange );
