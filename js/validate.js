@@ -87,14 +87,8 @@ pristine.addValidator(
   `Длина комментария должна быть не более ${MAX_COMMENT_SYMBOLS} символов`
 );
 
-const onFormInput = (evt) => {
-  if (!pristine.validate()) {
-    evt.preventDefault();
-  }
-};
-
 const refreshPrinstine = () => {
   pristine.reset();
 };
 
-export { onFormInput, refreshPrinstine };
+export { pristine, refreshPrinstine };
