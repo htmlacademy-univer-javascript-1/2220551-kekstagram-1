@@ -5,7 +5,7 @@ import './form.js';
 
 initThumbnails(createPhotos());
 
-let photos = [];
+let photos = []; 
 
 const onSuccess = (data) => {
   photos = data.slice();
