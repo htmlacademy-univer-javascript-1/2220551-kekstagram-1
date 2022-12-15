@@ -1,4 +1,4 @@
-import { isEscKey } from './util.js';
+import { isEscKey } from './utils.js';
 
 const DEFAULT_RENDERED_COMMENTS = 5;
 const STEP_ADDED_COMMENTS = 5;

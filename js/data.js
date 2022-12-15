@@ -1,4 +1,4 @@
-import { getRandomPositiveInclusive } from './util.js';
+import { getRandomPositiveInclusive } from './utils.js';
 import  { NAMES, MESSAGES, DESCRIPTIONS, CountLike, AvatarSvg, CountComment, MAX_COUNT_PHOTOS } from './consts.js';
 
 const createComment = (id) => ({

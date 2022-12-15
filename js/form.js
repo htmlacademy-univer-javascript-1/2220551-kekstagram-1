@@ -1,7 +1,8 @@
-import { isEscKey } from './util.js';
+import { isEscKey } from './utils.js';
 import { pristine, refreshPrinstine } from './validate.js';
 import { setDefaultScale, onScaleControlClick } from './scale.js';
 import { setDefaultEffects } from './effects.js';
+import { sendData } from './sending.js';
 
 const imgUploadFileChange = document.querySelector('.img-upload__input');
 const form = document.querySelector('.img-upload__form');
@@ -14,8 +15,9 @@ const isNoFocus = (evt) =>
   !evt.target.classList.contains('text__description');
 
 const onFormInput = (evt) => {
-  if (!pristine.validate()) {
-    evt.preventDefault();
+  evt.preventDefault();
+  if (pristine.validate()) {
+    sendData();
   }
 };
 
@@ -32,9 +34,15 @@ const onFormCloseBtnClick = () => {
   scaleField.removeEventListener('click', onScaleControlClick);
 };
 
+const onClosingButtonClick =() => {
+  onFormCloseBtnClick();
+  closingButton.removeEventListener('click', onFormCloseBtnClick);
+};
+
 const onEscClick = (evt) => {
   if (isEscKey(evt) && isNoFocus(evt)) {
     onFormCloseBtnClick();
+    closingButton.removeEventListener('click', onFormCloseBtnClick);
     document.removeEventListener('keydown', onEscClick);
     scaleField.removeEventListener('click', onScaleControlClick);
   }
@@ -44,7 +52,7 @@ const onImgUploadFieldСhange  = () => {
   overlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
-  closingButton.addEventListener('click', onFormCloseBtnClick);
+  closingButton.addEventListener('click', onClosingButtonClick);
   document.addEventListener('keydown', onEscClick);
   form.addEventListener('submit', onFormInput);
 
@@ -54,3 +62,5 @@ const onImgUploadFieldСhange  = () => {
 };
 
 imgUploadFileChange.addEventListener('input', onImgUploadFieldСhange );
+
+export{onEscClick, onFormCloseBtnClick};
