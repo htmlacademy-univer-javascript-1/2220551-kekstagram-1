@@ -1,48 +1,45 @@
+const RADIX = 10;
+
 const Scale = {
   STEP: 25,
   MIN_VALUE: 25,
   MAX_VALUE: 100,
 };
 
-const overlay = document.querySelector('.img-upload__overlay');
-const scaleField = overlay.querySelector('.img-upload__scale');
-const scale = scaleField.querySelector('.scale__control--value');
-const imagePreview = overlay
+const imageOverlay = document.querySelector('.img-upload__overlay');
+const image = imageOverlay
   .querySelector('.img-upload__preview')
   .querySelector('img');
+const scaleControl = imageOverlay.querySelector('.img-upload__scale');
+const scaleField = scaleControl.querySelector('.scale__control--value');
 
 const setDefaultScale = () => {
-  scale.value = `${Scale.MAX_VALUE}%`;
-  imagePreview.style = `transform: scale(${1})`;
+  scaleField.value = `${Scale.MAX_VALUE}%`;
+  image.style = `transform: scale(${1})`;
 };
 
-const setCorrectScaleValue = (scaleValue) => {
-  if (scaleValue < Scale.MIN_VALUE) {
-    return Scale.MIN_VALUE;
-  }
-  if (scaleValue > Scale.MAX_VALUE) {
-    return Scale.MAX_VALUE;
-  }
-  return scaleValue;
-};
+const setCorrectValue = (scaleValue) =>
+  Math.min(Math.max(Scale.MIN_VALUE, scaleValue), Scale.MAX_VALUE);
 
-const onScaleFieldClick = (evt) => {
-  if (evt.target.tagName === 'BUTTON') {
-    let value = scale.value;
-    value = scale.value.slice(0, value.length - 1);
-    let scaleCoefficient = 1;
+const onScaleControlClick = (evt) => {
+  const target = evt.target;
 
-    if (evt.target.classList.contains('scale__control--smaller')) {
-      scaleCoefficient = -1;
-    }
-    value = parseInt(value, 10) + Scale.STEP * scaleCoefficient;
-    value = setCorrectScaleValue(value);
+  if (target.tagName === 'BUTTON') {
+    let value = scaleField.value;
+    value = scaleField.value.substr(0, value.length - 1);
 
-    imagePreview.style = `transform: scale(${value / 100})`;
-    scale.value = `${value}%`;
+    const scaleCoefficient = target.classList.contains(
+      'scale__control--smaller'
+    )
+      ? -1
+      : 1;
+
+    value = parseInt(value, RADIX) + Scale.STEP * scaleCoefficient;
+    value = setCorrectValue(value);
+
+    image.style = `transform: scale(${value / Scale.MAX_VALUE})`;
+    scaleField.value = `${value}%`;
   }
 };
 
-scaleField.addEventListener('click', onScaleFieldClick);
-
-export { setDefaultScale };
+export { setDefaultScale, onScaleControlClick };
