@@ -1,15 +1,14 @@
-import { createPhotos } from './data.js';
 import { initThumbnails } from './thumbnails.js';
-import { sendRequest } from './fetch.js';
+import { sendRequest } from './api.js';
 import './form.js';
+import './filters.js';
 
-initThumbnails(createPhotos());
-
-let photos = []; 
+let photos = [];
 
 const onSuccess = (data) => {
   photos = data.slice();
   initThumbnails(photos);
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 };
 
 
@@ -26,4 +25,8 @@ const onFail = () => {
   document.body.append(messageAlert);
 };
 
+const getData = () => photos;
+
 sendRequest(onSuccess, onFail, 'GET');
+
+export { getData };

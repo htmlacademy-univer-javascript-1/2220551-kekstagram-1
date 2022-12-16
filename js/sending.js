@@ -1,4 +1,4 @@
-import { sendRequest } from './fetch.js';
+import { sendRequest } from './api.js';
 import { onFormCloseBtnClick } from './form.js';
 import { isEscKey } from './utils.js';
 import { onEscClick } from './form.js';

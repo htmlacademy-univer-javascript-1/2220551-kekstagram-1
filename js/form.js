@@ -34,7 +34,7 @@ const onFormCloseBtnClick = () => {
   scaleField.removeEventListener('click', onScaleControlClick);
 };
 
-const onClosingButtonClick =() => {
+const onClosingButtonClick = () => {
   onFormCloseBtnClick();
   closingButton.removeEventListener('click', onFormCloseBtnClick);
 };
@@ -48,19 +48,19 @@ const onEscClick = (evt) => {
   }
 };
 
-const onImgUploadFieldСhange  = () => {
+const onImgUploadFieldСhange = () => {
+  setDefaultScale();
+  scaleField.addEventListener('click', onScaleControlClick);
+  setDefaultEffects();
   overlay.classList.remove('hidden');
+
   document.body.classList.add('modal-open');
 
   closingButton.addEventListener('click', onClosingButtonClick);
   document.addEventListener('keydown', onEscClick);
   form.addEventListener('submit', onFormInput);
-
-  setDefaultScale();
-  scaleField.addEventListener('click', onScaleControlClick);
-  setDefaultEffects();
 };
 
-imgUploadFileChange.addEventListener('input', onImgUploadFieldСhange );
+imgUploadFileChange.addEventListener('input', onImgUploadFieldСhange);
 
-export{onEscClick, onFormCloseBtnClick};
+export { onEscClick, onFormCloseBtnClick };
