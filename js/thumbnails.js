@@ -35,4 +35,6 @@ const initThumbnails = (data) => {
   pictures.forEach((picture) => picture.addEventListener('click', onThumbnailClick));
 };
 
-export { initThumbnails };
+const clearPhotos = () => document.querySelectorAll('.picture').forEach((picture) => picture.remove());
+
+export { initThumbnails, clearPhotos };
