@@ -1,5 +1,6 @@
 import { initThumbnails } from './thumbnails.js';
 import { sendRequest } from './api.js';
+import './user-photo.js';
 import './form.js';
 import './filters.js';
 

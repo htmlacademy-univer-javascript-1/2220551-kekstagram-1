@@ -75,15 +75,12 @@ const hashtagsHandler = (value) => {
   });
 };
 
+const commentsValidate = (comment) => comment.length <= MAX_COMMENT_SYMBOLS;
+
 pristine.addValidator(inputHashtag, hashtagsHandler, error);
-
-inputHashtag.addEventListener('input', hashtagsHandler);
-
-const commentsHandler = (comment) => comment.length <= MAX_COMMENT_SYMBOLS;
-
 pristine.addValidator(
   inputComment,
-  commentsHandler,
+  commentsValidate,
   `Длина комментария должна быть не более ${MAX_COMMENT_SYMBOLS} символов`
 );
 
