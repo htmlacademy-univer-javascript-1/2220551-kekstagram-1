@@ -1,12 +1,3 @@
-const form = document.querySelector('.img-upload__form');
-const overlay = document.querySelector('.img-upload__overlay');
-const imagePreview = overlay.querySelector('.img-upload__preview');
-const slider = form.querySelector('.effect-level__slider');
-const effectsList = form.querySelector('.effects__list');
-const image = imagePreview.querySelector('img');
-const effectLevelField = form.querySelector('.img-upload__effect-level');
-const defaultImageClass = image.classList[0];
-
 const EffectParametr = {
   MAX_CHROME_VALUE: 1,
   MAX_SEPIA_VALUE: 1,
@@ -23,6 +14,15 @@ const Slider = {
   MAX: 100,
   STEP: 1,
 };
+
+const form = document.querySelector('.img-upload__form');
+const overlay = document.querySelector('.img-upload__overlay');
+const imagePreview = overlay.querySelector('.img-upload__preview');
+const slider = form.querySelector('.effect-level__slider');
+const effectsList = form.querySelector('.effects__list');
+const image = imagePreview.querySelector('img');
+const effectLevelField = form.querySelector('.img-upload__effect-level');
+const defaultImageClass = image.classList[0];
 
 let effectLevelValue = form.querySelector('.effect-level__value').value;
 let currentEffect = '';
@@ -84,8 +84,7 @@ const setDefaultEffects = () => {
 };
 
 const setEffect = (effect) => {
-  const effectName = effect.replace('effects__preview--', '');
-  image.style.filter = effects[effectName]();
+  image.style.filter=effects[effect.replace('effects__preview--','')]();
 };
 
 const onEffectsClick = (evt) => {

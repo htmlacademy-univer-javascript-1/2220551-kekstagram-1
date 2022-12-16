@@ -15,7 +15,7 @@ const scaleField = scaleControl.querySelector('.scale__control--value');
 
 const setDefaultScale = () => {
   scaleField.value = `${Scale.MAX_VALUE}%`;
-  image.style = `transform: scale(${1})`;
+  image.style.transform=`scale(${1})`;
 };
 
 const setCorrectValue = (scaleValue) =>
@@ -37,7 +37,7 @@ const onScaleControlClick = (evt) => {
     value = parseInt(value, RADIX) + Scale.STEP * scaleCoefficient;
     value = setCorrectValue(value);
 
-    image.style = `transform: scale(${value / Scale.MAX_VALUE})`;
+    image.style.transform=`scale(${value/Scale.MAX_VALUE})`;
     scaleField.value = `${value}%`;
   }
 };

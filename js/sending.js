@@ -63,7 +63,9 @@ const onFail = () => {
 
 const onFormEscKeyDown = (evt) => {
   if (isEscKey(evt)) {
-    closeMessage();
+    if(message){
+      closeMessage();
+    }
 
     if (message.classList.contains('success')) {
       onFormCloseBtnClick();
