@@ -84,8 +84,8 @@ pristine.addValidator(
   `Длина комментария должна быть не более ${MAX_COMMENT_SYMBOLS} символов`
 );
 
-const refreshPrinstine = () => {
+const refreshPristine = () => {
   pristine.reset();
 };
 
-export { pristine, refreshPrinstine };
+export { pristine, refreshPristine };
