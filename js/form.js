@@ -1,8 +1,8 @@
 import { isEscKey } from './utils.js';
-import { pristine, refreshPrinstine } from './validate.js';
+import { pristine, refreshPristine } from './validate.js';
 import { setDefaultScale, onScaleControlClick } from './scale.js';
 import { setDefaultEffects } from './effects.js';
-import { sendData } from './sending.js';
+import { sendData } from './sending-form.js';
 
 const imgUploadFileChange = document.querySelector('.img-upload__input');
 const form = document.querySelector('.img-upload__form');
@@ -28,7 +28,7 @@ const onFormCloseBtnClick = () => {
   form.reset();
   imgUploadFileChange.value = '';
 
-  refreshPrinstine();
+  refreshPristine();
   form.removeEventListener('submit', onFormInput);
   closingButton.removeEventListener('click', onFormCloseBtnClick);
   scaleField.removeEventListener('click', onScaleControlClick);

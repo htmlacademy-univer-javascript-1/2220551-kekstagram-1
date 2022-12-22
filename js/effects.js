@@ -1,11 +1,11 @@
-const EffectParametr = {
+const EffectParameter = {
   MAX_CHROME_VALUE: 1,
   MAX_SEPIA_VALUE: 1,
   MAX_INVERT_VALUE: 100,
   MAX_BLUR_VALUE: 3,
   MAX_BRIGHTNESS_VALUE: 3,
   RADIX: 10,
-  STEP: 0.01,
+  STEP: 0.1,
   INVERT_STEP: 1,
 };
 
@@ -25,7 +25,8 @@ const effectLevelField = form.querySelector('.img-upload__effect-level');
 const defaultImageClass = image.classList[0];
 
 let effectLevelValue = form.querySelector('.effect-level__value').value;
-let currentEffect = '';
+let currentEffect = 'none';
+
 noUiSlider.create(slider, {
   range: {
     min: Slider.MIN,
@@ -44,34 +45,34 @@ const effects = {
   chrome: () => {
     effectLevelField.classList.remove('visually-hidden');
     return `grayscale(${
-      parseInt(effectLevelValue, EffectParametr.RADIX) * EffectParametr.STEP
+      parseInt(effectLevelValue, EffectParameter.RADIX) * EffectParameter.STEP
     })`;
   },
   sepia: () => {
     effectLevelField.classList.remove('visually-hidden');
-    return `sepia(${parseInt(effectLevelValue, EffectParametr.RADIX) * EffectParametr.STEP})`;
+    return `sepia(${parseInt(effectLevelValue, EffectParameter.RADIX) * EffectParameter.STEP})`;
   },
   marvin: () => {
     effectLevelField.classList.remove('visually-hidden');
     return `invert(${
-      parseInt(effectLevelValue, EffectParametr.RADIX) * EffectParametr.INVERT_STEP
+      parseInt(effectLevelValue, EffectParameter.RADIX) * EffectParameter.INVERT_STEP
     }%)`;
   },
   phobos: () => {
     effectLevelField.classList.remove('visually-hidden');
     return `blur(${
-      parseInt(effectLevelValue, EffectParametr.RADIX) *
-      EffectParametr.STEP *
-      EffectParametr.MAX_BLUR_VALUE
+      parseInt(effectLevelValue, EffectParameter.RADIX) *
+      EffectParameter.STEP *
+      EffectParameter.MAX_BLUR_VALUE
     }px)`;
   },
   heat: () => {
     effectLevelField.classList.remove('visually-hidden');
-    const effectMin = Slider.MAX / (EffectParametr.MAX_BRIGHTNESS_VALUE - 1);
+    const effectMin = Slider.MAX / (EffectParameter.MAX_BRIGHTNESS_VALUE - 1);
     return `brightness(${
-      (effectMin + parseInt(effectLevelValue, EffectParametr.RADIX)) *
-      EffectParametr.STEP *
-      (EffectParametr.MAX_BRIGHTNESS_VALUE - 1)
+      (effectMin + parseInt(effectLevelValue, EffectParameter.RADIX)) *
+      EffectParameter.STEP *
+      (EffectParameter.MAX_BRIGHTNESS_VALUE - 1)
     })`;
   },
 };
